@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0d291c16-fde5-4061-badb-9f79ad292075" name="Changes" comment="Works for 2 balls" />
+    <list default="true" id="0d291c16-fde5-4061-badb-9f79ad292075" name="Changes" comment="Works for 2 balls">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -57,7 +60,7 @@
       <option name="presentableId" value="Default" />
       <updated>1685051761913</updated>
       <workItem from="1685051763661" duration="123000" />
-      <workItem from="1685051905636" duration="5890000" />
+      <workItem from="1685051905636" duration="9471000" />
     </task>
     <task id="LOCAL-00001" summary="Works for 2 balls">
       <created>1685060232133</created>
@@ -66,7 +69,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685060232133</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Works for 2 balls">
+      <created>1685060267552</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1685060267552</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

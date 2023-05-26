@@ -15,12 +15,11 @@ fun main() {
 class Sim : JPanel() {
 	val frame: JFrame
 
-	val a: Ball
-	val b: Ball
+	val bs: MutableList<Ball>
 
 	init {
 		frame = JFrame("Phys")
-		frame.setSize(200, 200)
+		frame.setSize(1000, 800)
 		frame.layout = BorderLayout(0, 0)
 		frame.defaultCloseOperation = WindowConstants.DISPOSE_ON_CLOSE
 		frame.isResizable = false
@@ -28,10 +27,14 @@ class Sim : JPanel() {
 		frame.setLocationRelativeTo(null)
 		frame.isVisible = true
 
-		a = Ball(width * Math.random(), height * Math.random(), 20.0, 10.0)
-		b = Ball(width * Math.random(), height * Math.random(), 20.0, 10.0)
-		a.vel = Vec(Math.random() - 0.5, Math.random() - 0.5).setMag(15.0 * Math.random())
-		b.vel = Vec(Math.random() - 0.5, Math.random() - 0.5).setMag(15.0 * Math.random())
+		bs = mutableListOf()
+		for (i in 0 until 200) {
+			bs.add(Ball(0.0, 0.0, 0.0, 0.0))
+			do {
+				bs[i] = Ball(width * Math.random(), height * Math.random(), 20.0, 5.0)
+			} while (bs[i].loc.x - bs[i].radius <= 0 || bs[i].loc.x + bs[i].radius >= width || bs[i].loc.y - bs[i].radius <= 0 || bs[i].loc.y + bs[i].radius >= height)
+			bs[i].vel = Vec(Math.random() - 0.5, Math.random() - 0.5).setMag((2.0 * Math.random() + 3) / 4)
+		}
 
 		val runner = object : SwingWorker<Any?, Any?>() {
 			@Throws(Exception::class)
@@ -54,26 +57,39 @@ class Sim : JPanel() {
 			color = Color.BLACK
 			fillRect(0, 0, width, height)
 
-			a.draw(this)
-			b.draw(this)
+			for (ball in bs) {
+				ball.draw(this)
+			}
 
-			a.move()
-			b.move()
+			for (q in 0..3) {
+				for (ball in bs) {
+					ball.move()
+				}
 
-			val aDist = b.loc - a.loc
-			if (aDist.mag() <= a.radius + b.radius) {
-				val aAngle = a.vel.angleBetween(aDist)
-				val aImage = aDist.setMag(a.vel.mag() * cos(aAngle))
+				for (i in bs.indices) {
+					for (j in bs.indices) {
+						if (i <= j) continue
 
-				val bDist = -aDist
-				val bAngle = b.vel.angleBetween(bDist)
-				val bImage = bDist.setMag(b.vel.mag() * cos(bAngle))
+						val a = bs[i]
+						val b = bs[j]
 
-				val aPerp = a.vel - aImage
-				val bPerp = b.vel - bImage
+						val aDist = b.loc - a.loc
+						if (aDist.mag() <= a.radius + b.radius) {
+							val aAngle = a.vel.angleBetween(aDist)
+							val aImage = aDist.setMag(a.vel.mag() * cos(aAngle))
 
-				a.vel = aPerp + bImage
-				b.vel = bPerp + aImage
+							val bDist = -aDist
+							val bAngle = b.vel.angleBetween(bDist)
+							val bImage = bDist.setMag(b.vel.mag() * cos(bAngle))
+
+							val aPerp = a.vel - aImage
+							val bPerp = b.vel - bImage
+
+							bs[i].vel = aPerp + bImage
+							bs[j].vel = bPerp + aImage
+						}
+					}
+				}
 			}
 		}
 	}
